@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboard interactivo de Estadística I sobre la paradoja del cumpleaños.">
+  <title>Paradoja del cumpleaños | Dashboard estadístico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">∿</div>
+        <div><strong>DataLab</strong><span>ESTADÍSTICA I</span></div>
+      </div>
+      <div class="side-label">ESPACIO DE TRABAJO</div>
+      <nav class="nav">
+        <a class="nav-link active" href="#overview"><span>◫</span> Resumen general</a>
+        <a class="nav-link" href="#analysis"><span>▥</span> Análisis estadístico</a>
+        <a class="nav-link" href="#probability"><span>⌁</span> Probabilidad</a>
+        <a class="nav-link" href="#statistics"><span>∑</span> Fórmulas y frecuencias</a>
+        <a class="nav-link" href="#participants"><span>▤</span> Base de datos</a>
+        <a class="nav-link" href="#sample"><span>Ω</span> Espacio muestral</a>
+        <a class="nav-link" href="#tree"><span>⑂</span> Árbol</a>
+        <a class="nav-link" href="#bayes"><span>⇄</span> Bayes</a>
+        <a class="nav-link" href="#binomial"><span>B</span> Binomial</a>
+        <a class="nav-link" href="#simulator"><span>⚄</span> Simulador</a>
+        <a class="nav-link" href="#conclusions"><span>✓</span> Conclusiones</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="study-card">
+          <div class="study-icon">✦</div>
+          <strong>Proyecto académico</strong>
+          <p>Explorando una coincidencia matemática sorprendente.</p>
+        </div>
+        <div class="sidebar-foot"><span class="status-dot"></span> Datos locales · Sin conexión requerida</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menú">☰</button>
+        <div class="breadcrumb">Proyectos <span>/</span> <strong>Paradoja del cumpleaños</strong></div>
+        <div class="top-actions"><span class="live-pill"><i></i> PANEL INTERACTIVO</span><button class="export-top" id="exportCsvTop">↓ <span>Exportar datos</span></button></div>
+      </header>
+
+      <section class="hero" id="overview">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> INVESTIGACIÓN · ESTADÍSTICA DESCRIPTIVA Y PROBABILIDAD</div>
+          <h1>La paradoja del<br><em>cumpleaños.</em></h1>
+          <p class="hero-copy">¿Cuántas personas se necesitan para que dos compartan cumpleaños? Explora los datos y descubre cómo crece esta probabilidad.</p>
+          <div class="hero-meta"><span>▦ <b data-n>100</b> registros simulados</span><span>◷ Año de referencia: 365 días</span><span>✧ Actualización automática</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="orbit-core"><span>365</span><small>DÍAS</small></div>
+          <div class="float-chip chip-a">🎂 <b>23</b><small>personas</small></div>
+          <div class="float-chip chip-b">✦ <b>50,7%</b><small>probabilidad</small></div>
+          <div class="float-chip chip-c">↗ <b>100</b><small>registros</small></div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><div class="eyebrow">VISTA GENERAL</div><h2>Indicadores principales</h2></div><span class="muted-note">Calculados desde la base de datos</span></div>
+        <div class="kpi-grid">
+          <article class="kpi-card"><div class="kpi-top"><span>Total de participantes</span><span class="kpi-icon violet">♙</span></div><div class="kpi-value" id="kpiTotal">100</div><div class="kpi-foot"><span class="trend neutral">Muestra</span> personas registradas</div></article>
+          <article class="kpi-card"><div class="kpi-top"><span>Fechas diferentes</span><span class="kpi-icon blue">▦</span></div><div class="kpi-value" id="kpiDistinct">84</div><div class="kpi-foot">Días de cumpleaños distintos</div></article>
+          <article class="kpi-card"><div class="kpi-top"><span>Fechas compartidas</span><span class="kpi-icon orange">⟲</span></div><div class="kpi-value" id="kpiRepeated">14</div><div class="kpi-foot">Fechas con dos o más personas</div></article>
+          <article class="kpi-card"><div class="kpi-top"><span>Personas en coincidencias</span><span class="kpi-icon green">✧</span></div><div class="kpi-value" id="kpiSharedPeople">30</div><div class="kpi-foot"><span class="positive" id="sharedPercent">30%</span> de la muestra</div></article>
+        </div>
+      </section>
+
+      <section class="section-block" id="analysis">
+        <div class="section-heading"><div><div class="eyebrow">DISTRIBUCIÓN DE LA MUESTRA</div><h2>¿Cuándo cumplen años?</h2></div><span class="chart-tag"><b data-n>100</b> participantes</span></div>
+        <div class="analysis-grid">
+          <article class="panel chart-panel">
+            <div class="panel-head"><div><h3>Cumpleaños por mes</h3><p>Frecuencia absoluta de cada mes</p></div><span class="panel-menu">···</span></div>
+            <div class="chart-wrap"><canvas id="monthlyChart" aria-label="Gráfica de cumpleaños por mes"></canvas></div>
+            <div class="chart-legend"><span><i class="legend-dot purple"></i> Participantes</span><span class="chart-insight" id="topMonth">Mes más frecuente: febrero</span></div>
+          </article>
+          <article class="panel chart-panel">
+            <div class="panel-head"><div><h3>Fechas más repetidas</h3><p>Días de cumpleaños compartidos</p></div><span class="panel-menu">···</span></div>
+            <div class="chart-wrap"><canvas id="repeatedChart" aria-label="Gráfica de fechas repetidas"></canvas></div>
+            <div class="chart-legend"><span><i class="legend-dot orange"></i> Personas por fecha</span><span class="chart-insight">Coincidencias detectadas</span></div>
+          </article>
+        </div>
+        <div class="analysis-grid lower-grid">
+          <article class="panel chart-panel">
+            <div class="panel-head"><div><h3>Fechas únicas vs. compartidas</h3><p>Clasificación de los participantes</p></div></div>
+            <div class="donut-layout"><div class="donut-wrap"><canvas id="donutChart" aria-label="Gráfica circular de cumpleaños únicos y compartidos"></canvas><div class="donut-center"><strong id="donutTotal">100</strong><span>personas</span></div></div><div class="donut-legend"><div><i class="legend-dot purple"></i><span>En fechas compartidas</span><b id="donutShared">30</b></div><div><i class="legend-dot pale"></i><span>En fechas únicas</span><b id="donutUnique">70</b></div></div></div>
+          </article>
+          <article class="panel insight-panel">
+            <div class="insight-symbol">✦</div><div class="eyebrow">HALLAZGO DE LA MUESTRA</div><h3 id="insightTitle">14 fechas aparecen más de una vez</h3><p id="insightText">Treinta participantes forman parte de fechas compartidas. Esto describe los datos simulados; no es la probabilidad teórica.</p><div class="insight-bottom"><span>LECTURA ESTADÍSTICA</span><b>Coincidencias observadas</b></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block probability-section" id="probability">
+        <div class="section-heading"><div><div class="eyebrow">EXPERIMENTO MATEMÁTICO</div><h2>La probabilidad sorprende</h2><p class="section-description">La probabilidad de que al menos dos personas compartan cumpleaños aumenta rápidamente con el tamaño del grupo.</p></div><span class="chart-tag accent-tag">Modelo teórico · 365 días</span></div>
+        <article class="panel probability-panel">
+          <div class="probability-head"><div><h3>Probabilidad de coincidencia</h3><p>Selecciona el tamaño del grupo y observa el resultado.</p></div><div class="prob-big"><strong id="probCurrent">99,99997%</strong><span>probabilidad teórica</span></div></div>
+          <div class="slider-area"><div class="slider-label"><label for="groupSize">Personas en el grupo</label><output id="groupOutput">100 personas</output></div><input id="groupSize" type="range" min="2" max="100" value="100"><div class="range-labels"><span>2 personas</span><span>100 personas</span></div></div>
+          <div class="prob-chart-wrap"><canvas id="probabilityChart" aria-label="Curva de probabilidad según el tamaño del grupo"></canvas></div>
+          <div class="milestone-row"><div><span class="milestone-dot"></span><b>23 personas</b><small>50,73% de probabilidad</small></div><div><span class="milestone-dot orange-dot"></span><b>50 personas</b><small>97,04% de probabilidad</small></div><div><span class="milestone-dot green-dot"></span><b>100 personas</b><small>99,99997% de probabilidad</small></div></div>
+        </article>
+        <div class="formula-grid">
+          <article class="formula-card"><div class="formula-label">FÓRMULA PRINCIPAL</div><div class="formula">P(coincidencia) = 1 − P(ninguna)</div><p>Calculamos primero la probabilidad de que todos tengan cumpleaños distintos y la restamos de 1.</p></article>
+          <article class="formula-card formula-note"><div class="formula-label">¿POR QUÉ 23 PERSONAS?</div><div class="formula-highlight">≈ 50,73%</div><p>Con solo 23 personas, la posibilidad de que exista al menos una coincidencia ya supera el 50%.</p></article>
+        </div>
+      </section>
+
+      <section class="section-block statistics-section" id="statistics">
+        <div class="section-heading"><div><div class="eyebrow">ESTADÍSTICA I · CÁLCULO AUTOMÁTICO</div><h2>Fórmulas y tablas de frecuencias</h2><p class="section-description">Todos los resultados se calculan directamente desde los 100 registros. Si cambian los datos, las tablas y medidas se actualizan.</p></div><span class="chart-tag accent-tag">Análisis descriptivo</span></div>
+
+        <div class="stats-subheading"><div><h3>Biblioteca de fórmulas</h3><p>Qué significa cada expresión y cómo se aplica.</p></div></div>
+        <div class="formula-library">
+          <article class="formula-explain"><span class="formula-index">01</span><h4>Frecuencia absoluta</h4><div class="math-expression">fᵢ</div><p>Número de veces que aparece una categoría o valor.</p></article>
+          <article class="formula-explain"><span class="formula-index">02</span><h4>Frecuencia relativa</h4><div class="math-expression">hᵢ = fᵢ / N</div><p>Proporción que representa la frecuencia respecto al total.</p></article>
+          <article class="formula-explain"><span class="formula-index">03</span><h4>Frecuencia porcentual</h4><div class="math-expression">% = hᵢ × 100</div><p>Expresa la frecuencia relativa en porcentaje.</p></article>
+          <article class="formula-explain"><span class="formula-index">04</span><h4>Frecuencia acumulada</h4><div class="math-expression">Fᵢ = Σ fⱼ</div><p>Suma de las frecuencias hasta la categoría actual, en un orden definido.</p></article>
+          <article class="formula-explain"><span class="formula-index">05</span><h4>Media aritmética</h4><div class="math-expression">x̄ = Σxᵢ / N</div><p>Promedio del día ordinal del año; no se calcula sobre nombres de meses.</p></article>
+          <article class="formula-explain"><span class="formula-index">06</span><h4>Rango</h4><div class="math-expression">R = xₘₐₓ − xₘᵢₙ</div><p>Diferencia entre el mayor y el menor día ordinal observado.</p></article>
+          <article class="formula-explain"><span class="formula-index">07</span><h4>Varianza poblacional</h4><div class="math-expression">σ² = Σ(xᵢ − x̄)² / N</div><p>Promedio de las desviaciones cuadráticas respecto a la media.</p></article>
+          <article class="formula-explain"><span class="formula-index">08</span><h4>Desviación estándar</h4><div class="math-expression">σ = √σ²</div><p>Dispersión típica de los días ordinales respecto a su media.</p></article>
+        </div>
+
+        <div class="stats-subheading"><div><h3>Medidas descriptivas</h3><p>Resumen numérico calculado usando el día ordinal (1 a 365).</p></div></div>
+        <div class="measure-grid">
+          <article class="measure-card"><span>MEDIA</span><strong id="statMean">—</strong><small>Día ordinal promedio</small></article>
+          <article class="measure-card"><span>MEDIANA</span><strong id="statMedian">—</strong><small>Valor central</small></article>
+          <article class="measure-card"><span>MODA</span><strong id="statMode">—</strong><small>Día(s) ordinal(es) más frecuentes</small></article>
+          <article class="measure-card"><span>RANGO</span><strong id="statRange">—</strong><small>Máximo menos mínimo</small></article>
+          <article class="measure-card"><span>VARIANZA</span><strong id="statVariance">—</strong><small>Varianza poblacional</small></article>
+          <article class="measure-card"><span>DESV. ESTÁNDAR</span><strong id="statDeviation">—</strong><small>En días ordinales</small></article>
+        </div>
+        <div class="method-note compact-note"><div class="method-icon">i</div><div><strong>Cómo interpretar estas medidas</strong><p>Los meses son categorías, por eso no tiene sentido calcular su media. Para poder resumir numéricamente las fechas se convierten a día ordinal de un año no bisiesto (por ejemplo, 1 de enero = 1 y 31 de diciembre = 365). Esta codificación sirve para describir la posición en el calendario, pero la media y la desviación deben interpretarse con cautela porque el calendario es cíclico.</p></div></div>
+
+        <div class="stats-subheading"><div><h3>Tabla de frecuencias por mes</h3><p>Frecuencia absoluta, relativa, porcentaje y acumuladas.</p></div><button class="secondary-button" id="exportFrequency">↓ Exportar tablas CSV</button></div>
+        <article class="panel table-panel stats-table-panel"><div class="table-scroll"><table><thead><tr><th>MES</th><th>fi</th><th>hi</th><th>%</th><th>Fi</th><th>Hi</th></tr></thead><tbody id="monthFrequencyBody"></tbody><tfoot id="monthFrequencyFoot"></tfoot></table></div></article>
+
+        <div class="stats-two-col">
+          <div><div class="stats-subheading"><div><h3>Frecuencia por día del mes</h3><p>Del día 1 al 31.</p></div></div><article class="panel table-panel stats-table-panel"><div class="table-scroll"><table><thead><tr><th>DÍA</th><th>fi</th><th>hi</th><th>%</th><th>Fi</th></tr></thead><tbody id="dayFrequencyBody"></tbody></table></div></article></div>
+          <div><div class="stats-subheading"><div><h3>Fechas exactas repetidas</h3><p>Solo se muestran fechas con más de un registro.</p></div></div><article class="panel table-panel stats-table-panel"><div class="table-scroll"><table><thead><tr><th>FECHA</th><th>fi</th><th>% DE LA MUESTRA</th></tr></thead><tbody id="exactFrequencyBody"></tbody></table></div></article></div>
+        </div>
+
+        <div class="stats-subheading"><div><h3>Distribución agrupada del año</h3><p>Intervalos de 30 días del calendario (día ordinal).</p></div></div>
+        <article class="panel table-panel stats-table-panel"><div class="table-scroll"><table><thead><tr><th>INTERVALO</th><th>fi</th><th>hi</th><th>%</th><th>Fi</th></tr></thead><tbody id="intervalFrequencyBody"></tbody></table></div></article>
+
+        <div class="stats-subheading"><div><h3>Comparación: muestra y modelo teórico</h3><p>Dos resultados distintos que responden preguntas diferentes.</p></div></div>
+        <div class="comparison-grid">
+          <article class="comparison-card"><span class="comparison-label">RESULTADO OBSERVADO EN LOS DATOS</span><strong id="observedShare">—</strong><p id="observedDescription">Participantes que pertenecen a una fecha compartida, según los registros simulados.</p></article>
+          <article class="comparison-card theoretical"><span class="comparison-label">PROBABILIDAD TEÓRICA PARA 100 PERSONAS</span><strong id="theoreticalShare">—</strong><p>Probabilidad matemática de que al menos dos personas coincidan, suponiendo 365 días equiprobables e independencia.</p></article>
+        </div>
+        <div class="formula-card probability-formula-card"><div class="formula-label">DESARROLLO DE LA PROBABILIDAD</div><div class="math-expression light-math">P(C) = 1 − P(ninguna coincidencia)</div><p>P(C) = 1 − [(365/365) × (364/365) × ... × ((365 − n + 1)/365)]</p><p>n es el número de personas. El modelo excluye el 29 de febrero y supone que todos los cumpleaños tienen la misma probabilidad.</p></div>
+      </section>
+
+      <section class="section-block" id="participants">
+        <div class="section-heading"><div><div class="eyebrow">BASE DE DATOS EDITABLE</div><h2>Participantes registrados</h2><p class="section-description">Agrega, modifica o elimina registros: tablas, gráficas e indicadores se recalculan al instante. Los cambios se guardan en este navegador.</p></div><button class="primary-button" id="exportCsv">↓ Exportar CSV</button></div>
+        <article class="panel db-tools">
+          <div class="tool-row"><label class="field"><span>Día</span><input type="number" id="addDay" min="1" max="31" placeholder="DD"></label><label class="field"><span>Mes</span><select id="addMonth"></select></label><button class="primary-button" id="addBtn">+ Agregar</button>
+          <span class="tool-sep"></span><label class="field"><span>Importar CSV</span><select id="importMode"><option value="replace">Reemplazar la base</option><option value="append">Agregar a la base</option></select></label><label class="secondary-button file-button">↑ Elegir archivo<input type="file" id="importFile" accept=".csv,.txt,text/csv" hidden></label><button class="secondary-button" id="resetData">↺ Restaurar originales</button></div>
+          <p class="import-msg" id="importMsg" role="status"></p>
+        </article>
+        <article class="panel table-panel">
+          <div class="table-toolbar"><div class="search-box"><span>⌕</span><input type="search" id="searchInput" placeholder="Buscar participante o fecha..."></div><select id="monthFilter" aria-label="Filtrar por mes"><option value="">Todos los meses</option></select><select id="statusFilter" aria-label="Filtrar por tipo de fecha"><option value="">Todas las fechas</option><option value="shared">Fecha compartida</option><option value="unique">Fecha única</option></select><span class="result-count" id="resultCount">100 registros</span></div>
+          <div class="table-scroll"><table><thead><tr><th>PARTICIPANTE</th><th>FECHA DE CUMPLEAÑOS</th><th>MES</th><th>CLASIFICACIÓN</th><th>ACCIONES</th></tr></thead><tbody id="participantsBody"></tbody></table></div>
+          <div class="table-footer"><span id="tableSummary"></span><span>Datos simulados para fines académicos</span></div>
+        </article>
+      </section>
+
+      <section class="section-block" id="sample">
+        <div class="section-heading"><div><div class="eyebrow">TEORÍA DE PROBABILIDAD</div><h2>Espacio muestral, eventos y complemento</h2><p class="section-description">Cada resultado es una lista (d₁, …, dₙ) con dᵢ ∈ {1, …, 365}. Es más fácil contar el complemento que el evento original.</p></div></div>
+        <article class="panel pad"><div class="slider-label"><label for="ssN">Personas en el grupo (n)</label><output id="ssNOut"></output></div><input id="ssN" type="range" min="1" max="60" value="3" style="width:100%">
+          <div class="measure-grid" id="ssCards" style="margin-top:16px"></div>
+          <div class="formula-card" style="margin-top:14px"><div class="formula-label">REGLA DEL COMPLEMENTO</div><div class="math-expression light-math">A = «al menos dos comparten fecha» &nbsp; Aᶜ = «todos distintos»</div><p id="ssSteps"></p></div></article>
+      </section>
+
+      <section class="section-block" id="tree">
+        <div class="section-heading"><div><div class="eyebrow">ÁRBOL DE PROBABILIDAD</div><h2>Persona por persona</h2><p class="section-description">Cada persona nueva evita las fechas anteriores con probabilidad (365 − k + 1)/365. Una coincidencia termina la rama.</p></div></div>
+        <article class="panel pad"><div class="slider-label"><label for="treeN">Tamaño del grupo</label><output id="treeNOut"></output></div><input id="treeN" type="range" min="2" max="8" value="4" style="width:100%">
+          <div class="tree-wrap" id="treeBox"></div><div class="table-scroll"><table><thead><tr><th>RAMA FINAL</th><th>PROBABILIDAD DEL CAMINO</th></tr></thead><tbody id="treeBody"></tbody><tfoot id="treeFoot"></tfoot></table></div></article>
+      </section>
+
+      <section class="section-block" id="bayes">
+        <div class="section-heading"><div><div class="eyebrow">TEOREMA DE BAYES</div><h2>Actualizar creencias con evidencia</h2><p class="section-description">P(Gᵢ | C) = P(C | Gᵢ)·P(Gᵢ) / Σ P(C | Gⱼ)·P(Gⱼ)</p></div></div>
+        <article class="panel pad"><h3>1 · Con el modelo teórico</h3><p class="muted-p">Se elige al azar un grupo de n₁ o de n₂ personas y se observa que sí hay una coincidencia (C). ¿De cuál grupo vino?</p>
+          <div class="calc-grid"><label class="field"><span>Grupo 1 (n₁)</span><input type="number" id="bN1" min="2" max="100" value="23"></label><label class="field"><span>Grupo 2 (n₂)</span><input type="number" id="bN2" min="2" max="100" value="10"></label><label class="field"><span>P(Grupo 1) a priori, %</span><input type="number" id="bPrior" min="1" max="99" value="50"></label></div>
+          <div class="tree-wrap" id="bayesTree1"></div><div class="measure-grid" id="bayesCards1"></div></article>
+        <article class="panel pad" style="margin-top:16px"><h3>2 · Con la base de datos</h3><p class="muted-p">Sabiendo que alguien tiene fecha compartida (S), ¿qué probabilidad hay de que haya nacido en el mes elegido?</p>
+          <div class="calc-grid"><label class="field"><span>Mes</span><select id="bMonth"></select></label></div>
+          <div class="tree-wrap" id="bayesTree2"></div><div class="measure-grid" id="bayesCards2"></div></article>
+      </section>
+
+      <section class="section-block" id="binomial">
+        <div class="section-heading"><div><div class="eyebrow">DISTRIBUCIÓN BINOMIAL</div><h2>Calculadora y ejercicios resueltos</h2><p class="section-description">X ~ Bin(n, p): P(X = k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ</p></div></div>
+        <article class="panel pad"><div class="calc-grid"><label class="field"><span>n (ensayos)</span><input type="number" id="binN" min="1" max="2000" value="10"></label><label class="field"><span>p: 0,25 · 25% · 1/365</span><input type="text" id="binP" inputmode="decimal" value="0.5073"></label><label class="field"><span>k (o k₁)</span><input type="number" id="binK" min="0" value="6"></label><label class="field" id="binK2w" hidden><span>k₂ (límite superior)</span><input type="number" id="binK2" min="0" value="8"></label><label class="field"><span>Evento</span><select id="binMode"><option value="eq">P(X = k)</option><option value="le">P(X ≤ k)</option><option value="lt">P(X &lt; k)</option><option value="ge" selected>P(X ≥ k)</option><option value="gt">P(X &gt; k)</option><option value="ne">P(X ≠ k)</option><option value="bt">P(k₁ ≤ X ≤ k₂)</option></select></label></div>
+          <div class="measure-grid" id="binCards"></div><div class="formula-card" id="binSteps" style="margin:12px 0"></div><div class="prob-chart-wrap"><canvas id="binChart" aria-label="Distribución binomial"></canvas></div><details style="margin-top:12px"><summary style="cursor:pointer;font-weight:600;font-size:12px">Tabla completa de la distribución</summary><div class="table-scroll"><table><thead><tr><th>x</th><th>P(X = x)</th><th>P(X ≤ x)</th><th>P(X ≥ x)</th></tr></thead><tbody id="binTable"></tbody></table></div></details></article>
+        <div id="exercises" class="exercise-grid"></div>
+        <article class="panel pad" style="margin-top:16px"><h3>Calculadora de la paradoja</h3><p class="muted-p">Para cualquier tamaño de grupo: probabilidad de coincidencia, complemento y cuántas personas hacen falta para una probabilidad objetivo.</p><div class="calc-grid"><label class="field"><span>Personas (n)</span><input type="number" id="bcN" min="1" max="365" value="23"></label><label class="field"><span>Probabilidad objetivo, %</span><input type="number" id="bcT" min="1" max="99.99" step="any" value="90"></label></div><div class="measure-grid" id="bcCards"></div></article>
+      </section>
+
+      <section class="section-block" id="simulator">
+        <div class="section-heading"><div><div class="eyebrow">LABORATORIO</div><h2>Simulador de la paradoja</h2><p class="section-description">Genera cumpleaños al azar (365 días equiprobables) y compara la frecuencia obtenida con la probabilidad teórica.</p></div></div>
+        <article class="panel pad"><div class="calc-grid"><label class="field"><span>Personas por grupo: <b id="simNOut">23</b></span><input type="range" id="simN" min="2" max="100" value="23"></label><label class="field"><span>Repeticiones</span><select id="simReps"><option>100</option><option selected>1000</option><option>10000</option></select></label></div>
+          <div class="tool-row"><button class="primary-button" id="simOne">🎂 Simular un grupo</button><button class="primary-button" id="simMany">▶ Simular repeticiones</button></div>
+          <div class="chip-list" id="simChips"></div><p class="muted-p" id="simMsg"></p>
+          <div class="measure-grid" id="simCards"></div><div class="prob-chart-wrap"><canvas id="simChart" aria-label="Convergencia de la proporción simulada"></canvas></div></article>
+      </section>
+
+      <section class="section-block" id="conclusions">
+        <div class="section-heading"><div><div class="eyebrow">CIERRE DEL ANÁLISIS</div><h2>Hallazgos, conclusiones y recomendación</h2></div></div>
+        <div class="conclusion-grid" id="conclusionBox"></div>
+      </section>
+
+      <section class="method-note">
+        <div class="method-icon">i</div><div><strong>Nota metodológica</strong><p>Los 100 registros son datos simulados, no una encuesta aplicada a personas reales. El modelo teórico supone 365 días igualmente probables, independencia entre cumpleaños y no considera el 29 de febrero. La frecuencia observada en esta muestra y la probabilidad teórica son medidas diferentes.</p></div>
+      </section>
+      <footer class="footer"><div class="brand mini"><div class="brand-mark">∿</div><div><strong>DataLab</strong><span>PROYECTO DE ESTADÍSTICA I</span></div></div><span>Dashboard académico · Paradoja del cumpleaños</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="extras.js"></script>
+</body>
+</html>
